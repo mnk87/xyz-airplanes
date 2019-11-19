@@ -1,0 +1,24 @@
+{
+  "name": "xyz-airplanes",
+  "version": "1.0.0",
+  "description": "spectrum airplanes case",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnk87/xyz-airplanes.git"
+  },
+  "author": "Michiel van Ginhoven",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mnk87/xyz-airplanes/issues"
+  },
+  "homepage": "https://github.com/mnk87/xyz-airplanes#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}

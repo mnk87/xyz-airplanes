@@ -1,0 +1,23 @@
+CREATE TABLE airplane (
+  id INT NOT NULL AUTO_INCREMENT primary key,
+  regnr VARCHAR(100) NOT NULL,
+  fuel INT NOT NULL,
+  location INT NOT NULL,
+  FOREIGN KEY (location) REFERENCES airfield(id)
+);
+
+CREATE TABLE airfield (
+  id INT NOT NULL AUTO_INCREMENT primary key,
+  name VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE flight (
+  id INT NOT NULL AUTO_INCREMENT primary key,
+  airplane_id INT NOT NULL,
+  from_location INT NOT NULL,
+  to_location INT NOT NULL,
+  flightdate DATE NOT NULL,
+  FOREIGN KEY (airplane_id) REFERENCES airplane(id),
+  FOREIGN KEY (from_location) REFERENCES airfield(id),
+  FOREIGN KEY (to_location) REFERENCES airfield(id)
+);
