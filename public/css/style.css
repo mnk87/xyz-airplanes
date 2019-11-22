@@ -1,0 +1,13 @@
+.headerText {
+  color: Chartreuse;
+}
+
+body {
+  background-color: MediumSpringGreen;
+}
+
+.mainContainer {
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
+}

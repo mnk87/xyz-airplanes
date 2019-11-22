@@ -51,6 +51,15 @@ app.get('/api/airplane', (req,res) => {
     res.send(airplanes);
   });
 });
+//get all
+app.get('/api/airplane2', (req,res) => {
+  res.setHeader('Content-Type','application/json');
+  connection.query('SELECT airplane.id, regnr, fuel, location, airfield.name FROM airplane INNER JOIN airfield ON airplane.location = airfield.id', (err,airplanes) => {
+    if(err) throw err;
+    res.send(airplanes);
+  });
+});
+
 //get by id
 app.get('/api/airplane/:id', (req, res) => {
   let id = +req.params.id;
@@ -126,5 +135,25 @@ app.get('/api/airfield/:id', (req, res) => {
       res.setHeader('Content-Type', 'application/json');
       res.status(404).end();
     }
+  });
+});
+//delete by id
+app.delete('/api/airfield/:id', (req, res) => {
+  let id = req.params.id;
+  connection.query('DELETE FROM airfield WHERE id = ?', id, (err,result) => {
+    if(err) throw err;
+    res.status(204).end();
+  });
+});
+//put by id
+app.put('/api/airfield/:id', (req, res) =>  {
+  let id = req.params.id;
+  let inputUser = req.body;
+  connection.query('UPDATE airfield SET ? WHERE id = ?', [inputUser, id], (err, response) => {
+    if (err) throw err;
+    connection.query('SELECT * FROM airfield WHERE id = ?', id, (err2, updatedAirplane) => {
+      if(err2) throw err2;
+      res.send(updatedAirplane[0]);
+    });
   });
 });
