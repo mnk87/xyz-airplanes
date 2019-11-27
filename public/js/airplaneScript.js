@@ -4,6 +4,11 @@ $(document).ready( () => {
     { title: "Registration Number", data: "regnr"},
     { title: "Current fuel level", data: "fuel"},
     { title: "Current Location", data: "name"},
+    { title: "Refuel",
+        "render": (data, type, row, meta) => {
+          return `<button type="button" class="btn btn-warning" onclick="refuelAirplane(${row.id});">refuel</button>`;
+        }
+    },
     { title: "edit/delete",
         "render": (data, type, row, meta) => {
           let edString = `<button type="button" class="btn btn-danger"onclick="showRemoveAirplane(${row.id});">remove</button>`;
@@ -298,3 +303,18 @@ function editAirplane() {
     }
   }
 } // end of function editAirplane()
+
+function refuelAirplane(idToRefuel) {
+  const id = idToRefuel;
+  const url = '/api/airplane/refuel/' + id;
+  const xhttp = new XMLHttpRequest();
+  xhttp.open('PUT', url);
+  xhttp.send();
+  xhttp.onreadystatechange = () => {
+    //console.log('readyState: ', xhttp.readyState);
+    //console.log('status: ', xhttp.status);
+    if (xhttp.readyState === 4 && xhttp.status === 200) {
+      getAirplaneData();
+    }
+  }
+}
