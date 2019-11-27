@@ -157,10 +157,19 @@ app.get('/api/airfield/:id', (req, res) => {
 //delete by id
 app.delete('/api/airfield/:id', (req, res) => {
   let id = req.params.id;
-  connection.query('DELETE FROM airfield WHERE id = ?', id, (err,result) => {
-    if(err) throw err;
-    res.status(204).end();
+  connection.query('SELECT * FROM airplane WHERE location = ?', id, (err1, result1) => {
+    if(err1) throw err1;
+    if(result1.length > 0){
+      res.status(403).end();
+    }
+    else{
+      connection.query('DELETE FROM airfield WHERE id = ?', id, (err,result) => {
+        if(err) throw err;
+        res.status(204).end();
+      });
+    }
   });
+
 });
 //put by id
 app.put('/api/airfield/:id', (req, res) =>  {
