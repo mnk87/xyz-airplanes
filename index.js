@@ -98,6 +98,7 @@ app.put('/api/airplane/:id', (req, res) =>  {
   let id = req.params.id;
   let inputUser = req.body;
   connection.query(`SELECT * FROM airplane WHERE NOT id = ${id} AND regnr = '${inputUser.regnr}'`, (err, response) => {
+    if(err) throw err;
     if(response.length > 0){
       res.status(403).end();
     }

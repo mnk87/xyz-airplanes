@@ -235,7 +235,7 @@ function editAirplane() {
       html: true,
       content: "please fill out this field",
       animation: true,
-      placement: "right"
+      placement: "top"
 
     })
     $('#editModalFuelInput').popover('show');
@@ -248,7 +248,7 @@ function editAirplane() {
           html: true,
           content: "please fill in a value between 0-5000",
           animation: true,
-          placement: "right"
+          placement: "top"
 
         });
         $('#editModalFuelInput').popover('show');
@@ -260,7 +260,7 @@ function editAirplane() {
         html: true,
         content: "please fill in a value between 0-5000",
         animation: true,
-        placement: "right"
+        placement: "top"
 
       })
       $('#editModalFuelInput').popover('show');
@@ -297,4 +297,4 @@ function editAirplane() {
       }
     }
   }
-}
+} // end of function editAirplane()
