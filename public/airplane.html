@@ -11,7 +11,7 @@
   <body>
     <div class="jumbotron bg-dark">
       <div class="container">
-        <h1 class="headerText">XYZ airplanes</h1>
+        <h1 class="headerText">XYZ airlines</h1>
         <p class="headerText">airplanes</p>
       </div>
     </div>
@@ -22,11 +22,11 @@
       <table class="createInputs">
         <tr>
           <td><label for="regNrInput">registration number of the plane: </label></td>
-          <td><input type="text" name="regNrInput" id="regNrInput" value=""></td>
+          <td><input type="text" name="regNrInput" id="regNrInput" value="" oninput="hidePopover('regNrInput')"></td>
         </tr>
         <tr>
           <td><label for="fuelInput">Initial fuel level: </label></td>
-          <td><input type="text" name="fuelInput" id="fuelInput" value=""></td>
+          <td><input type="text" name="fuelInput" id="fuelInput" value="" oninput="hidePopover('fuelInput')"></td>
         </tr>
         <tr>
           <td><label for="locationSelect">select starting location: </label></td>
@@ -36,6 +36,87 @@
       <button type="button" name="button" class="btn btn-secondary" onclick="createAirplane()">create</button>
     </div> <!-- end of mainContainer -->
 
+
+
+
+
+
+
+
+    <!--
+
+      MODALS
+
+    -->
+    <div class="modal" id="errorModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header" id="errorModalHeader">
+            <h5 class="modal-title" id="errorModalTitle">something went wrong...</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="modalErrorText">Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="removeModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header" id="removeModalHeader">
+            <h5 class="modal-title" id="removeModalTitle">Delete record</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="removeModalText">Are you sure you want to delete the airplane with id <span id="removeModalIdSpan"></span>?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" onclick="removeAirplane()">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="editModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header" id="editModalHeader">
+            <h5 class="modal-title" id="editModalTitle">Delete record</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5>change airplane with id <span id="editModalIdSpan"></span></h5>
+            <input type="hidden" id="editModalId" value="">
+            <input type="hidden" id="editModalRegNr" value="">
+            <label for="editModalRegNrInput">change registration number: </label>
+            <input type="text" name="editModalRegNrInput" id="editModalRegNrInput" value="" oninput="hidePopover('editModalRegNrInput')" class="form-control">
+            <label for="editModalFuelInput">change fuel level: </label>
+            <input type="text" name="editModalFuelInput" id="editModalFuelInput" value="" oninput="hidePopover('editModalFuelInput')"class="form-control">
+            <label for="editModalLocationSelect">change location: </label>
+            <select class="form-control" id="editModalLocationSelect" name="editModalLocationSelect">
+              <optgroup label="Current Location" id="editModalCurrentLocation"></optgroup>
+              <optgroup label="Change to other location" id="editModalLocations"></optgroup>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" onclick="editAirplane()">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 

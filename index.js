@@ -38,9 +38,18 @@ app.get('/', (req, res) => {
 //post
 app.post('/api/airplane', (req,res) => {
   let content = req.body;
-  connection.query('INSERT INTO airplane SET ?', content, (err, result) => {
-    if(err) throw err;
-    res.send(result);
+  //console.log(content.regnr);
+  connection.query('SELECT * FROM airplane WHERE regnr = ?', content.regnr, (err1, result1) => {
+    if(err1) throw err1;
+    if(result1.length > 0){
+      res.status(403).send(`An airplane with the registration number ${result1[0].regnr} already exists!`);
+    }
+    else{
+      connection.query('INSERT INTO airplane SET ?', content, (err, result) => {
+        if(err) throw err;
+        res.send(result);
+      });
+    }
   });
 });
 //get all
@@ -88,12 +97,19 @@ app.delete('/api/airplane/:id', (req, res) => {
 app.put('/api/airplane/:id', (req, res) =>  {
   let id = req.params.id;
   let inputUser = req.body;
-  connection.query('UPDATE airplane SET ? WHERE id = ?', [inputUser, id], (err, response) => {
-    if (err) throw err;
-    connection.query('SELECT * FROM airplane WHERE id = ?', id, (err2, updatedAirplane) => {
-      if(err2) throw err2;
-      res.send(updatedAirplane[0]);
-    });
+  connection.query(`SELECT * FROM airplane WHERE NOT id = ${id} AND regnr = '${inputUser.regnr}'`, (err, response) => {
+    if(response.length > 0){
+      res.status(403).end();
+    }
+    else{
+      connection.query('UPDATE airplane SET ? WHERE id = ?', [inputUser, id], (err1, response1) => {
+        if (err1) throw err1;
+        connection.query('SELECT * FROM airplane WHERE id = ?', id, (err2, updatedAirplane) => {
+          if(err2) throw err2;
+          res.send(updatedAirplane[0]);
+        });
+      });
+    }
   });
 });
 //refuel

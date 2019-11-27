@@ -11,3 +11,8 @@ body {
   border-radius: 15px;
   padding: 10px;
 }
+
+#errorModalHeader {
+  background-color: red;
+  color: white;
+}
