@@ -101,7 +101,7 @@ function startFlight() {
     return;
   }
   if(fuel < 2000){
-    showErrorModal('pruttel','please refuel this airplane before taking off, or else');
+    showErrorModal('not enough fuel','please refuel this airplane before taking off.');
     return;
   }
   if(!endingLocation){
@@ -109,7 +109,7 @@ function startFlight() {
     return;
   }
   if(startingLocation === endingLocation){
-    showErrorModal('wtf','you\'re trying to fly to the same airport you retard');
+    showErrorModal('not possible','you\'re trying to fly to the same airport, please select a different destination');
     return;
   }
   const jsonObject = {
