@@ -68,7 +68,6 @@ app.get('/api/airplane2', (req,res) => {
     res.send(airplanes);
   });
 });
-
 //get by id
 app.get('/api/airplane/:id', (req, res) => {
   let id = +req.params.id;
@@ -169,7 +168,6 @@ app.delete('/api/airfield/:id', (req, res) => {
       });
     }
   });
-
 });
 //put by id
 app.put('/api/airfield/:id', (req, res) =>  {
@@ -180,6 +178,44 @@ app.put('/api/airfield/:id', (req, res) =>  {
     connection.query('SELECT * FROM airfield WHERE id = ?', id, (err2, updatedAirplane) => {
       if(err2) throw err2;
       res.send(updatedAirplane[0]);
+    });
+  });
+});
+
+app.get('/api/availableplanes/:id', (req, res) => {
+  const id = req.params.id;
+  connection.query('SELECT airplane.id, regnr, fuel, location, airfield.name FROM airplane INNER JOIN airfield ON airplane.location = airfield.id WHERE airplane.location = ?', id, (err, result) => {
+    if(err) throw err;
+    res.send(result);
+  });
+});
+//flight crud
+//post
+app.post('/api/flight', (req,res) => {
+  let content = req.body;
+  connection.query('INSERT INTO flight SET airplane_id = ?, from_location = ?, to_location = ?, flightdate = CURRENT_DATE()', [content.airplane_id, content.from_location, content.to_location], (err, result) => {
+    if(err) throw err;
+    connection.query('SELECT fuel FROM airplane WHERE id = ?', content.airplane_id, (err1, result1) => {
+      if(err1) throw err1;
+      let fuel = result1[0].fuel;
+      fuel -= 2000;
+      connection.query('UPDATE airplane SET fuel = ?, location = ? WHERE id = ?', [fuel, content.to_location, content.airplane_id], (err2, result2) => {
+        if(err2) throw err2;
+        res.send(result);
+      });
+    });
+  });
+});
+
+app.post('/api/flighteasy', (req, res) => {
+  let content = req.body;
+  connection.query('SELECT fuel FROM airplane WHERE id = ?', content.airplane_id, (err1, result1) => {
+    if(err1) throw err1;
+    let fuel = result1[0].fuel;
+    fuel -= 2000;
+    connection.query('UPDATE airplane SET fuel = ?, location = ? WHERE id = ?', [fuel, content.to_location, content.airplane_id], (err2, result2) => {
+      if(err2) throw err2;
+      res.send(result2);
     });
   });
 });

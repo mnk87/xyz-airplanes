@@ -2,10 +2,84 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/sl-1.3.1/datatables.min.css"/>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>airplanes - XYZ airlines</title>
   </head>
   <body>
-    hatseklats
-    <a href="/airplane.html">naar aiprlnaej</a>
+    <div class="jumbotron bg-dark">
+      <div class="container">
+        <h1 class="headerText">XYZ airlines</h1>
+        <p class="headerText">fly me to the moon</p>
+      </div>
+    </div>
+    <nav class="navbar navbar-dark navbar-expand-sm bg-dark justify-content-center">
+      <ul class="nav navbar-nav" id="navbar-ul">
+        <li class="nav-item">
+          <a class="nav-link" href="/airplane.html">Airplanes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/airfield.html">Airfields</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/flight.html">Flights</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container mainContainer">
+      <h1>FLY!</h1>
+      <h2>select starting location</h2>
+      <label for="startingLocationSelect">select starting location: </label>
+      <select class="" name="startingLocationSelect" id="startingLocationSelect" onchange="getAirplaneData()">
+        <option value="">Select an airfield....</option>
+      </select>
+      <h2>available planes for this airfield</h2>
+      <table id="airplaneTable" class="display compact" style="width:100%"></table>
+
+      <h2>select destination</h2>
+      <label for="endingLocationSelect">select destination: </label>
+      <select class="" name="endingLocationSelect" id="endingLocationSelect">
+        <option value="">Select an airfield....</option>
+      </select>
+      <span id="airplaneSpan"></span>
+      <h2>start flight</h2>
+      <button type="button" name="button" id="startFlightButton" class="btn btn-secondary btn-block" onclick="startFlight()">START FLIGHT</button>
+    </div> <!-- end of mainContainer -->
+
+
+    <div class="modal" id="errorModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header" id="errorModalHeader">
+            <h5 class="modal-title" id="errorModalTitle">something went wrong...</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="modalErrorText">Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/sl-1.3.1/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="/js/flightScript.js" charset="utf-8"></script>
   </body>
 </html>
